@@ -1,11 +1,11 @@
-#!/usr/bin/env python3
 import humanize
 
-import avatar
-import name
-import slack
+from . import avatar
+from . import name
+from . import slack
 
-if __name__ == "__main__":
+
+def main():
     flipped_name = name.flip_name()
     random_avatar_svg = avatar.download_random_avatar()
     random_avatar_png = avatar.svg_to_png(random_avatar_svg)
@@ -20,4 +20,3 @@ if __name__ == "__main__":
     print("Avatar updated in Slack")
 
     print("Bye!")
-

@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+
+env:
+  DOCKER_BUILDKIT: 1
+
+jobs:
+  build-image:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Build image
+      run: docker build -t docker.pkg.github.com/strayer/slack-name-flipper-and-avatar-generator/snfaag:latest .
+
+    - name: Login to GitHub registry
+      run: docker login https://docker.pkg.github.com -u ${{ github.repository_owner }} -p ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Push docker image
+      run: docker push docker.pkg.github.com/strayer/slack-name-flipper-and-avatar-generator/snfaag:latest
+
